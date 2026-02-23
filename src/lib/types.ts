@@ -32,6 +32,7 @@ export interface ClassifyResult {
   domain_key: string;
   display_name: string;
   similarity_score: number;
+  classification_mode: "embedding" | "keyword";
   best_candidate?: string;
 }
 

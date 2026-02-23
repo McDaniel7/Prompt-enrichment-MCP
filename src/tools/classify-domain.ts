@@ -21,7 +21,7 @@ export async function classifyDomain(
   userRequest: string
 ): Promise<ClassifyResult> {
   const threshold = getThreshold();
-  const { entry, score } = await kbStore.findBestDomain(userRequest);
+  const { entry, score, mode } = await kbStore.findBestDomain(userRequest);
 
   if (score >= threshold) {
     kbStore.incrementUsage(entry.domain_key);
@@ -29,6 +29,7 @@ export async function classifyDomain(
       domain_key: entry.domain_key,
       display_name: entry.display_name,
       similarity_score: Math.round(score * 1000) / 1000,
+      classification_mode: mode,
     };
   }
 
@@ -36,6 +37,7 @@ export async function classifyDomain(
     domain_key: "unknown",
     display_name: "Unknown Domain",
     similarity_score: Math.round(score * 1000) / 1000,
+    classification_mode: mode,
     best_candidate: entry.domain_key,
   };
 }

@@ -12,42 +12,85 @@
   "questions": [
     {
       "question": "What runtime will the function use?",
-      "options": ["Python 3.12", "Node.js 20", "Java 21", "Go", "Custom runtime (container image)"]
+      "options": [
+        "Python 3.12",
+        "Node.js 20",
+        "Java 21",
+        "Go",
+        "Custom runtime (container image)"
+      ]
     },
     {
       "question": "What will trigger the function?",
-      "options": ["API Gateway (HTTP endpoint)", "S3 event (file upload/delete)", "SQS message", "EventBridge schedule (cron)", "Another Lambda (invoke)"]
+      "options": [
+        "API Gateway (HTTP endpoint)",
+        "S3 event (file upload/delete)",
+        "SQS message",
+        "EventBridge schedule (cron)",
+        "Another Lambda (invoke)"
+      ]
     },
     {
       "question": "How much memory does the function need?",
-      "options": ["128 MB (minimal — lightweight logic)", "512 MB (default — typical workloads)", "1 GB (moderate processing)", "3 GB (heavy processing — image/video/ML)"]
+      "options": [
+        "128 MB (minimal — lightweight logic)",
+        "512 MB (default — typical workloads)",
+        "1 GB (moderate processing)",
+        "3 GB (heavy processing — image/video/ML)"
+      ]
     },
     {
       "question": "What is the expected maximum execution timeout?",
-      "options": ["3 seconds (simple fast logic)", "15 seconds", "1 minute", "5 minutes", "15 minutes (maximum — long-running jobs)"]
+      "options": [
+        "3 seconds (simple fast logic)",
+        "15 seconds",
+        "1 minute",
+        "5 minutes",
+        "15 minutes (maximum — long-running jobs)"
+      ]
     },
     {
       "question": "Does the function need to run inside a VPC?",
-      "options": ["No VPC needed", "Yes — needs access to RDS or ElastiCache", "Yes — needs access to internal private services"]
+      "options": [
+        "No VPC needed",
+        "Yes — needs access to RDS or ElastiCache",
+        "Yes — needs access to internal private services"
+      ]
     },
     {
       "question": "What AWS permissions does the function need?",
-      "options": ["None", "S3 read and/or write", "DynamoDB read and/or write", "RDS / Aurora access", "Multiple services — I will specify in the prompt"]
+      "options": [
+        "None",
+        "S3 read and/or write",
+        "DynamoDB read and/or write",
+        "RDS / Aurora access",
+        "Multiple services — I will specify in the prompt"
+      ]
     },
     {
       "question": "Will the function use environment variables or secrets?",
-      "options": ["No", "Yes — plain environment variables", "Yes — AWS Secrets Manager", "Yes — SSM Parameter Store"]
+      "options": [
+        "No",
+        "Yes — plain environment variables",
+        "Yes — AWS Secrets Manager",
+        "Yes — SSM Parameter Store"
+      ]
     },
     {
       "question": "Should the function include error handling and retry logic?",
-      "options": ["Basic try/catch only", "Retry with exponential backoff", "Dead-letter queue (DLQ) on failure", "Full structured error logging (CloudWatch)"]
+      "options": [
+        "Basic try/catch only",
+        "Retry with exponential backoff",
+        "Dead-letter queue (DLQ) on failure",
+        "Full structured error logging (CloudWatch)"
+      ]
     }
   ],
   "metadata": {
     "source": "curated",
     "created_at": "2026-02-24",
-    "usage_count": 0,
-    "last_used": null,
+    "usage_count": 1,
+    "last_used": "2026-02-23",
     "review_status": "approved"
   }
 }

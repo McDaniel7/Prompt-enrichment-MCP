@@ -17,6 +17,19 @@ const DOMAINS_DIR = path.join(KB_BASE, "domains");
 const EMBEDDINGS_CACHE_PATH = path.join(KB_BASE, "embeddings-cache.json");
 const DISCOVERY_PATH = path.join(KB_BASE, "discovery_dimensions.json");
 
+// Score returned for a keyword match (must exceed the default 0.40 threshold).
+const KEYWORD_MATCH_SCORE = 0.45;
+
+// Minimum token length to be considered a meaningful keyword.
+const MIN_TOKEN_LEN = 3;
+
+// Common English stopwords to ignore during keyword matching.
+const STOPWORDS = new Set([
+  "the", "and", "for", "are", "with", "that", "this", "from", "have",
+  "will", "can", "its", "all", "use", "using", "used", "build", "create",
+  "write", "make", "need", "want", "into", "via", "per",
+]);
+
 interface EmbeddingsCache {
   [domain_key: string]: {
     embedding: number[];
@@ -33,6 +46,15 @@ function hashContent(entry: DomainEntry): string {
     hash |= 0;
   }
   return String(hash);
+}
+
+function tokenize(text: string): Set<string> {
+  return new Set(
+    text
+      .toLowerCase()
+      .split(/\W+/)
+      .filter((w) => w.length >= MIN_TOKEN_LEN && !STOPWORDS.has(w))
+  );
 }
 
 function loadEmbeddingsCache(): EmbeddingsCache {
@@ -65,12 +87,14 @@ function loadAllDomains(): DomainEntry[] {
 export interface ClassifyCandidate {
   entry: DomainEntry;
   score: number;
+  mode: "embedding" | "keyword";
 }
 
 export class KBStore {
   private domains: DomainEntry[] = [];
   private cache: EmbeddingsCache = {};
   private initialized = false;
+  private embeddingAvailable = true;
 
   async initialize(): Promise<void> {
     if (this.initialized) return;
@@ -81,8 +105,9 @@ export class KBStore {
   }
 
   /**
-   * Ensures every domain has a valid cached embedding.
-   * Recomputes only when the content hash changes.
+   * Attempts to compute and cache embeddings for all domains.
+   * If the model is unavailable (e.g. no network), silently skips and
+   * marks the store to use keyword fallback.
    */
   private async syncEmbeddings(): Promise<void> {
     let dirty = false;
@@ -90,28 +115,80 @@ export class KBStore {
       const hash = hashContent(entry);
       const cached = this.cache[entry.domain_key];
       if (!cached || cached.content_hash !== hash) {
-        const text =
-          entry.description + " " + entry.example_requests.join(" ");
-        const embedding = await embed(text);
-        this.cache[entry.domain_key] = { embedding, content_hash: hash };
-        dirty = true;
+        try {
+          const text =
+            entry.description + " " + entry.example_requests.join(" ");
+          const embedding = await embed(text);
+          this.cache[entry.domain_key] = { embedding, content_hash: hash };
+          dirty = true;
+        } catch {
+          process.stderr.write(
+            `[prompt-enrichment-mcp] Embedding model unavailable — falling back to keyword matching.\n`
+          );
+          this.embeddingAvailable = false;
+          return;
+        }
       }
     }
     if (dirty) saveEmbeddingsCache(this.cache);
   }
 
   /**
-   * Finds the domain whose embedding is most similar to the query.
-   * Returns the best candidate and its score regardless of threshold.
+   * Finds the most relevant domain for a user request.
+   * Uses semantic embeddings when available, keyword matching as fallback.
    */
   async findBestDomain(userRequest: string): Promise<ClassifyCandidate> {
     await this.initialize();
-    const queryEmbedding = await embed(userRequest);
-    const embeddings = this.domains.map(
-      (d) => this.cache[d.domain_key].embedding
-    );
-    const { index, score } = findBestMatch(queryEmbedding, embeddings);
-    return { entry: this.domains[index], score };
+
+    if (this.embeddingAvailable) {
+      try {
+        const queryEmbedding = await embed(userRequest);
+        const embeddings = this.domains.map(
+          (d) => this.cache[d.domain_key].embedding
+        );
+        const { index, score } = findBestMatch(queryEmbedding, embeddings);
+        return { entry: this.domains[index], score, mode: "embedding" };
+      } catch {
+        process.stderr.write(
+          `[prompt-enrichment-mcp] Embedding failed — switching to keyword fallback.\n`
+        );
+        this.embeddingAvailable = false;
+      }
+    }
+
+    return this.keywordMatch(userRequest);
+  }
+
+  /**
+   * Keyword-based fallback classifier.
+   * Scores each domain by token overlap with the user request.
+   * Returns KEYWORD_MATCH_SCORE (above threshold) for the best overlapping
+   * domain, or 0 if no meaningful overlap is found.
+   */
+  private keywordMatch(userRequest: string): ClassifyCandidate {
+    const requestTokens = tokenize(userRequest);
+    let bestEntry = this.domains[0];
+    let bestOverlap = 0;
+
+    for (const entry of this.domains) {
+      const domainTokens = tokenize(
+        entry.description + " " + entry.example_requests.join(" ")
+      );
+      let overlap = 0;
+      for (const token of requestTokens) {
+        if (domainTokens.has(token)) overlap++;
+      }
+      if (overlap > bestOverlap) {
+        bestOverlap = overlap;
+        bestEntry = entry;
+      }
+    }
+
+    return {
+      entry: bestEntry,
+      score: bestOverlap > 0 ? KEYWORD_MATCH_SCORE : 0.0,
+      mode: "keyword",
+    };
   }
 
   getDomainByKey(key: string): DomainEntry | undefined {
@@ -120,7 +197,9 @@ export class KBStore {
 
   getDiscoveryDimensions(): DiscoveryDimensions {
     if (!fs.existsSync(DISCOVERY_PATH)) {
-      throw new Error(`discovery_dimensions.json not found at ${DISCOVERY_PATH}`);
+      throw new Error(
+        `discovery_dimensions.json not found at ${DISCOVERY_PATH}`
+      );
     }
     return JSON.parse(
       fs.readFileSync(DISCOVERY_PATH, "utf-8")
@@ -129,17 +208,25 @@ export class KBStore {
 
   /**
    * Writes a new domain entry to the KB and updates the embeddings cache.
+   * Embedding computation is attempted but skipped gracefully on failure.
    */
   async addDomain(entry: DomainEntry): Promise<void> {
     await this.initialize();
     const filePath = path.join(DOMAINS_DIR, `${entry.domain_key}.json`);
     fs.writeFileSync(filePath, JSON.stringify(entry, null, 2));
 
-    const text = entry.description + " " + entry.example_requests.join(" ");
-    const embedding = await embed(text);
-    const hash = hashContent(entry);
-    this.cache[entry.domain_key] = { embedding, content_hash: hash };
-    saveEmbeddingsCache(this.cache);
+    if (this.embeddingAvailable) {
+      try {
+        const text = entry.description + " " + entry.example_requests.join(" ");
+        const embedding = await embed(text);
+        const hash = hashContent(entry);
+        this.cache[entry.domain_key] = { embedding, content_hash: hash };
+        saveEmbeddingsCache(this.cache);
+      } catch {
+        // Keyword mode — domain is still saved to disk, no embedding stored.
+      }
+    }
+
     this.domains.push(entry);
   }
 
