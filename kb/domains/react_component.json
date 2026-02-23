@@ -1,0 +1,49 @@
+{
+  "domain_key": "react_component",
+  "display_name": "React UI Component",
+  "description": "Building React frontend UI components, including functional components, hooks, state management, and styling",
+  "example_requests": [
+    "build a reusable modal component in React",
+    "create a data table component with sorting and pagination",
+    "implement a React form with validation",
+    "build a dropdown menu component",
+    "create a React dashboard widget"
+  ],
+  "questions": [
+    {
+      "question": "Should the component be written in TypeScript or JavaScript?",
+      "options": ["TypeScript (strict typing, interface definitions)", "JavaScript (no type annotations)"]
+    },
+    {
+      "question": "What styling approach should be used?",
+      "options": ["Tailwind CSS (utility classes)", "CSS Modules (scoped .module.css)", "Styled-components (CSS-in-JS)", "Plain CSS / SCSS", "No styling — structure only"]
+    },
+    {
+      "question": "What state management does the component need?",
+      "options": ["Local state only (useState)", "Shared state via Context API", "External store (Redux / Zustand / Jotai)", "No state — purely presentational"]
+    },
+    {
+      "question": "Should the component be a Server Component or Client Component (Next.js)?",
+      "options": ["Client Component ('use client')", "Server Component (default in Next.js App Router)", "Not using Next.js — standard React"]
+    },
+    {
+      "question": "What props interface does the component need?",
+      "options": ["Define a typed props interface from scratch", "Extend an existing HTML element's props (e.g., HTMLButtonElement)", "No props — self-contained component"]
+    },
+    {
+      "question": "Are there accessibility requirements?",
+      "options": ["WCAG AA compliant (ARIA roles, keyboard navigation)", "Basic semantic HTML only", "No specific accessibility requirements"]
+    },
+    {
+      "question": "Should tests be included?",
+      "options": ["Unit tests with React Testing Library", "Storybook story for visual testing", "Both tests and Storybook", "No tests"]
+    }
+  ],
+  "metadata": {
+    "source": "curated",
+    "created_at": "2026-02-24",
+    "usage_count": 0,
+    "last_used": null,
+    "review_status": "approved"
+  }
+}

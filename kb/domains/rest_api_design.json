@@ -1,0 +1,49 @@
+{
+  "domain_key": "rest_api_design",
+  "display_name": "REST API Design",
+  "description": "Designing and implementing RESTful HTTP APIs, including endpoint design, authentication, request/response schemas, and documentation",
+  "example_requests": [
+    "design a REST API for a task management application",
+    "build a CRUD API for user profiles",
+    "create an API for a product catalog with search and filtering",
+    "implement a REST API with JWT authentication",
+    "design an API for a social media feed"
+  ],
+  "questions": [
+    {
+      "question": "What authentication method should the API use?",
+      "options": ["No authentication (public API)", "API key (header or query param)", "JWT Bearer token", "OAuth 2.0 (third-party login)", "Session cookie (server-side sessions)"]
+    },
+    {
+      "question": "What HTTP methods need to be supported?",
+      "options": ["GET only (read-only API)", "Full CRUD (GET, POST, PUT/PATCH, DELETE)", "Custom subset — I will specify", "Includes file upload (multipart/form-data)"]
+    },
+    {
+      "question": "What is the response format?",
+      "options": ["JSON only", "JSON with a consistent envelope (data, error, meta)", "JSON:API specification", "XML", "Both JSON and XML"]
+    },
+    {
+      "question": "Should API versioning be implemented?",
+      "options": ["URL path versioning (/v1/)", "Request header versioning (Accept: application/vnd.api.v1+json)", "Query parameter (?version=1)", "No versioning needed"]
+    },
+    {
+      "question": "How should errors be structured?",
+      "options": ["RFC 7807 Problem Details (standard)", "Custom error object with code and message", "HTTP status codes only (no body)", "I will define the error format"]
+    },
+    {
+      "question": "Should rate limiting be included?",
+      "options": ["Yes — specify limits in the implementation", "Yes — document it but implement externally (API gateway)", "No rate limiting needed"]
+    },
+    {
+      "question": "Should an OpenAPI / Swagger specification be generated?",
+      "options": ["Yes — generate a full OpenAPI 3.x spec", "Yes — inline code comments only (JSDoc / decorators)", "No documentation needed"]
+    }
+  ],
+  "metadata": {
+    "source": "curated",
+    "created_at": "2026-02-24",
+    "usage_count": 0,
+    "last_used": null,
+    "review_status": "approved"
+  }
+}

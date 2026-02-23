@@ -1,0 +1,17 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Embeddings cache (auto-generated at runtime, should not be committed)
+kb/embeddings-cache.json
+
+# Environment
+.env
+
+# macOS
+.DS_Store
+
+# Logs
+npm-debug.log*

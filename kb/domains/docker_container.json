@@ -1,0 +1,49 @@
+{
+  "domain_key": "docker_container",
+  "display_name": "Docker Container",
+  "description": "Writing Dockerfiles and Docker Compose configurations to containerize applications",
+  "example_requests": [
+    "create a Dockerfile for a Node.js Express application",
+    "write a Docker Compose setup for a web app with a database",
+    "containerize a Python Flask service",
+    "build a multi-stage Dockerfile for a Go application",
+    "set up a Docker development environment with hot reloading"
+  ],
+  "questions": [
+    {
+      "question": "What type of application are you containerizing?",
+      "options": ["Node.js / TypeScript", "Python", "Go", "Java / JVM", "Static files (nginx)", "Other — I will specify"]
+    },
+    {
+      "question": "What base image strategy should be used?",
+      "options": ["Official slim image (e.g., node:20-slim)", "Alpine Linux (smallest size)", "Distroless (minimal attack surface)", "Ubuntu / Debian (broadest compatibility)", "Custom base image — I will specify"]
+    },
+    {
+      "question": "Should a multi-stage build be used?",
+      "options": ["Yes — separate build stage and runtime stage (smaller final image)", "No — single stage is fine", "Not applicable (interpreted language, no build step)"]
+    },
+    {
+      "question": "What ports need to be exposed?",
+      "options": ["Single port (e.g., 3000, 8080)", "Multiple ports", "No ports — batch job or worker process"]
+    },
+    {
+      "question": "Does the container need persistent data storage?",
+      "options": ["Named Docker volume", "Bind mount (host directory)", "No persistence needed — stateless container"]
+    },
+    {
+      "question": "How should environment configuration be handled?",
+      "options": ["Environment variables via .env file", "Build-time ARG variables", "Secrets via Docker secrets (Swarm / Compose)", "Injected at runtime by orchestrator (Kubernetes)"]
+    },
+    {
+      "question": "Is a Docker Compose file needed alongside the Dockerfile?",
+      "options": ["Yes — include docker-compose.yml with all services", "Yes — with a database service (Postgres / MySQL / Redis)", "No — Dockerfile only"]
+    }
+  ],
+  "metadata": {
+    "source": "curated",
+    "created_at": "2026-02-24",
+    "usage_count": 0,
+    "last_used": null,
+    "review_status": "approved"
+  }
+}

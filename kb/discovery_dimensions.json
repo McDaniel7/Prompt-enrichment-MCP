@@ -1,0 +1,32 @@
+{
+  "dimensions": [
+    {
+      "name": "End Goal",
+      "probe": "What does success look like for this output? What is the user trying to achieve?"
+    },
+    {
+      "name": "Target Audience",
+      "probe": "Who will use or consume this? What is their technical level?"
+    },
+    {
+      "name": "Technical Constraints",
+      "probe": "What platform, technology stack, tools, or frameworks must be used or avoided?"
+    },
+    {
+      "name": "Scale & Performance",
+      "probe": "What are the volume, size, speed, or throughput requirements?"
+    },
+    {
+      "name": "Output Format",
+      "probe": "What format, structure, or shape should the result take?"
+    },
+    {
+      "name": "Quality Level",
+      "probe": "Is this a quick prototype or a production-quality, maintainable deliverable?"
+    },
+    {
+      "name": "Edge Cases & Constraints",
+      "probe": "What failure modes, edge scenarios, or hard constraints must be handled?"
+    }
+  ]
+}

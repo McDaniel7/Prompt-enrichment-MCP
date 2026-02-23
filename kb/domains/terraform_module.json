@@ -1,0 +1,49 @@
+{
+  "domain_key": "terraform_module",
+  "display_name": "Terraform / Infrastructure as Code",
+  "description": "Writing Terraform configurations and modules to provision and manage cloud infrastructure",
+  "example_requests": [
+    "create a Terraform module to provision an EKS cluster",
+    "write Terraform code for a VPC with public and private subnets",
+    "build a reusable Terraform module for an RDS instance",
+    "set up Terraform configuration for a multi-region deployment",
+    "create Terraform IAM roles and policies for a Lambda function"
+  ],
+  "questions": [
+    {
+      "question": "Which cloud provider are you targeting?",
+      "options": ["AWS", "Google Cloud Platform (GCP)", "Microsoft Azure", "Multi-cloud"]
+    },
+    {
+      "question": "What types of resources need to be provisioned?",
+      "options": ["Compute (EC2, GKE, AKS, etc.)", "Networking (VPC, subnets, security groups)", "Storage (S3, GCS, Blob)", "Database (RDS, Cloud SQL, Cosmos DB)", "IAM roles and policies", "Multiple resource types — I will specify"]
+    },
+    {
+      "question": "Where will Terraform state be stored?",
+      "options": ["Local state file (development only)", "AWS S3 with DynamoDB locking", "Terraform Cloud / HCP Terraform", "GCS bucket", "Azure Blob Storage"]
+    },
+    {
+      "question": "Should this be a reusable module or a one-off configuration?",
+      "options": ["Reusable module with input variables and outputs", "One-off root configuration for a specific environment", "Published module for the Terraform Registry"]
+    },
+    {
+      "question": "What is the environment strategy?",
+      "options": ["Single environment", "dev + prod (two workspaces)", "Full multi-environment (dev / staging / prod)", "Per-feature branch environments"]
+    },
+    {
+      "question": "Are you working with existing infrastructure?",
+      "options": ["Greenfield — everything created from scratch", "Importing some existing resources", "Mostly existing — minimal new resources"]
+    },
+    {
+      "question": "Which Terraform version should be targeted?",
+      "options": ["Latest stable (>= 1.9)", "1.5.x (stable LTS-style)", "OpenTofu (open-source fork)", "No preference"]
+    }
+  ],
+  "metadata": {
+    "source": "curated",
+    "created_at": "2026-02-24",
+    "usage_count": 0,
+    "last_used": null,
+    "review_status": "approved"
+  }
+}

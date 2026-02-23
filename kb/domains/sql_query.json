@@ -1,0 +1,49 @@
+{
+  "domain_key": "sql_query",
+  "display_name": "SQL Query / Database Schema",
+  "description": "Writing SQL queries, designing database schemas, and working with relational databases",
+  "example_requests": [
+    "write a SQL query to find top customers by revenue",
+    "create a database schema for an e-commerce platform",
+    "optimize this slow SQL query",
+    "write a stored procedure to generate monthly reports",
+    "design a normalized schema for a blog with comments and tags"
+  ],
+  "questions": [
+    {
+      "question": "Which database engine are you targeting?",
+      "options": ["PostgreSQL", "MySQL / MariaDB", "SQLite", "Microsoft SQL Server", "Generic ANSI SQL (any engine)"]
+    },
+    {
+      "question": "What type of operation is needed?",
+      "options": ["SELECT (read / query)", "INSERT / UPDATE / DELETE (write)", "DDL — CREATE TABLE / ALTER / INDEX", "Stored procedure or function", "Full schema design"]
+    },
+    {
+      "question": "Does the query involve joining multiple tables?",
+      "options": ["No joins — single table", "INNER JOIN (matching rows only)", "LEFT / RIGHT JOIN (include unmatched rows)", "Multiple complex joins across several tables"]
+    },
+    {
+      "question": "Are there aggregations or grouping requirements?",
+      "options": ["No aggregations", "Simple COUNT / SUM / AVG", "GROUP BY with HAVING", "Window functions (ROW_NUMBER, RANK, LAG, etc.)"]
+    },
+    {
+      "question": "What are the performance expectations?",
+      "options": ["Small dataset — performance is not a concern", "Large dataset — needs efficient indexing", "Real-time / low-latency query", "Batch / reporting query — throughput over latency"]
+    },
+    {
+      "question": "Will this be used via an ORM or as raw SQL?",
+      "options": ["Raw SQL", "Prisma", "Sequelize / TypeORM", "SQLAlchemy (Python)", "Hibernate / JPA (Java)"]
+    },
+    {
+      "question": "Should the result include comments or explanations of each clause?",
+      "options": ["Yes — annotated with comments", "No — clean SQL only"]
+    }
+  ],
+  "metadata": {
+    "source": "curated",
+    "created_at": "2026-02-24",
+    "usage_count": 0,
+    "last_used": null,
+    "review_status": "approved"
+  }
+}

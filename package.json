@@ -1,0 +1,44 @@
+{
+  "name": "prompt-enrichment-mcp",
+  "version": "0.1.0",
+  "description": "MCP server for prompt enrichment — classifies AI agent requests by semantic similarity and asks expert clarifying questions before the task begins.",
+  "type": "module",
+  "bin": {
+    "prompt-enrichment-mcp": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx src/index.ts",
+    "start": "node dist/index.js",
+    "prepare": "npm run build"
+  },
+  "files": [
+    "dist",
+    "kb",
+    "skill"
+  ],
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "cursor",
+    "prompt-engineering",
+    "ai-agents",
+    "llm",
+    "developer-tools",
+    "prompt-enrichment"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.6.0",
+    "@huggingface/transformers": "^3.3.0",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

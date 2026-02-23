@@ -1,0 +1,49 @@
+{
+  "domain_key": "video_generation",
+  "display_name": "AI Video Generation",
+  "description": "Generating videos using AI models such as Sora, Runway, Kling, or similar text-to-video and image-to-video tools",
+  "example_requests": [
+    "generate a 10-second promotional video for a coffee shop",
+    "create a cinematic scene with a person walking in a forest",
+    "make a product demo video using Sora",
+    "generate a short clip for social media using Runway",
+    "create an animated intro for a YouTube channel"
+  ],
+  "questions": [
+    {
+      "question": "What is the target duration of the video?",
+      "options": ["5 seconds or less", "10 seconds", "15–30 seconds", "60 seconds or longer"]
+    },
+    {
+      "question": "What aspect ratio and format is needed?",
+      "options": ["16:9 (landscape — YouTube, desktop)", "9:16 (portrait — TikTok, Instagram Reels, Shorts)", "1:1 (square — Instagram feed)", "4:3 (traditional TV / presentation)"]
+    },
+    {
+      "question": "Should the video include background music (BGM)?",
+      "options": ["Yes — match the mood of the scene", "Yes — specific genre (I will specify)", "Ambient sound only (no music)", "No audio"]
+    },
+    {
+      "question": "Are there actors or characters with spoken lines?",
+      "options": ["No actors or dialogue", "Actors present but no spoken lines", "Actors with spoken dialogue (provide script)", "Voice-over narration (no visible speaker)"]
+    },
+    {
+      "question": "What camera movement style is preferred?",
+      "options": ["Static (no camera movement)", "Slow pan or tilt", "Cinematic zoom", "Handheld / documentary feel", "Dynamic — multiple shot types"]
+    },
+    {
+      "question": "What visual style should be used?",
+      "options": ["Photorealistic", "Cinematic / film-grade", "Animated / cartoon", "Stylized / artistic", "Documentary / realistic"]
+    },
+    {
+      "question": "What lighting and time-of-day setting is preferred?",
+      "options": ["Bright natural daylight", "Golden hour / sunset", "Night scene", "Studio lighting (controlled)", "Dramatic / moody lighting"]
+    }
+  ],
+  "metadata": {
+    "source": "curated",
+    "created_at": "2026-02-24",
+    "usage_count": 0,
+    "last_used": null,
+    "review_status": "approved"
+  }
+}

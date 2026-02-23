@@ -1,0 +1,49 @@
+{
+  "domain_key": "python_script",
+  "display_name": "Python Script",
+  "description": "Writing Python scripts, utilities, automation tools, and standalone programs",
+  "example_requests": [
+    "write a Python script to parse and transform CSV files",
+    "create a Python automation script to batch rename files",
+    "build a Python CLI tool for API data fetching",
+    "write a Python script to scrape and process web data",
+    "create a Python utility to monitor a directory for changes"
+  ],
+  "questions": [
+    {
+      "question": "Which Python version should be targeted?",
+      "options": ["Python 3.12 (latest stable)", "Python 3.11", "Python 3.10", "Version-agnostic (compatible with 3.8+)"]
+    },
+    {
+      "question": "What is the execution context?",
+      "options": ["CLI script (run directly from terminal)", "Importable module / library", "Jupyter notebook", "Background service / daemon"]
+    },
+    {
+      "question": "How does the script receive input and produce output?",
+      "options": ["Command-line arguments (argparse / click)", "Standard input (stdin) and stdout", "Read from / write to files", "Calls external APIs or services"]
+    },
+    {
+      "question": "What dependencies are acceptable?",
+      "options": ["Standard library only (no pip installs)", "Minimal — one or two well-known packages", "Data science stack (pandas, numpy, etc.)", "Any packages — I will specify what's needed"]
+    },
+    {
+      "question": "What level of error handling is required?",
+      "options": ["Simple — print errors and exit", "Try/except with informative messages", "Full logging (Python logging module)", "Production-grade with retry logic and alerting"]
+    },
+    {
+      "question": "Should the code include type hints?",
+      "options": ["Full type hints throughout", "Type hints on function signatures only", "No type hints"]
+    },
+    {
+      "question": "Should tests be included?",
+      "options": ["pytest unit tests", "unittest (standard library)", "Doctest examples in docstrings", "No tests"]
+    }
+  ],
+  "metadata": {
+    "source": "curated",
+    "created_at": "2026-02-24",
+    "usage_count": 0,
+    "last_used": null,
+    "review_status": "approved"
+  }
+}
